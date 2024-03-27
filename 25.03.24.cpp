@@ -42,12 +42,52 @@ private:
     }
 };
 
+void get_input(double& P, double& N, double& t, double& qp, double& qt, double& qf, double& at)
+{
+    setlocale(0, "rus");
+    //float P, t, at, qp, qt, qf, Qp, Qt, Qf, np, nt, nf;
+    std::cout << "Введите суточную норму: ";
+    std::cin >> P;
+    std::cout << "Введите колличество смен: ";
+    std::cin >> N;
+    if (N > 2 && N < 0) {
+        std::cout << "Превышено возможное число смен ";
+        return;
+    }
+    std::cout << "Введите продолжительность смены: ";
+    std::cin >> t;
+    if (t > 12 && t < 0) {
+        std::cout << "Превышена продолжительность смены ";
+        return;
+    }
+    std::cout << "Введите производительность пельменного автомата: ";
+    std::cin >> qp;
+    std::cout << "Введите производительность тестомесителя: ";
+    std::cin >> qt;
+    std::cout << "Введите производительность куттера: ";
+    std::cin >> qf;
+    std::cout << "Введите массовую долю теста: ";
+    std::cin >> at;
+    if (at > 0.9 && at < 0.1) {
+        std::cout << "Не допустимое значение доли теста ";
+        return;
+    }
+    //Qp = P / (N * t);
+    //np = floor(Qp / qp) + 1;
+    //cout << "Необходимое колличество пельменных автоматов " << np;
+}
+
 int main() {
     std::cout << "Welcome to the Dumpling Factory Production Calculator!\n";
     std::cout << "Please enter the following parameters:\n";
 
+    
+
     double P, N, t, q_production, q_dough, q_filling, a_dough;
-    std::cout << "Daily output (P): ";
+
+    get_input(P, N, t, q_production, q_dough, q_filling, a_dough);
+
+    /*std::cout << "Daily output (P): ";
     std::cin >> P;
     std::cout << "Number of shifts (N): ";
     std::cin >> N;
@@ -60,7 +100,7 @@ int main() {
     std::cout << "Productivity of filling machine (q_filling): ";
     std::cin >> q_filling;
     std::cout << "Dough ratio (a_dough), in decimal form (e.g., 0.5 for 50%): ";
-    std::cin >> a_dough;
+    std::cin >> a_dough;*/
 
     DumplingFactory factory(P, N, t, q_production, q_dough, q_filling, a_dough);
     factory.displayProductionNumbers();
